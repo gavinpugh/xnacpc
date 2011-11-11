@@ -19,7 +19,7 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace XNACPC
 {
-	class Audio
+    class Audio
     {
         private const int CPC_SAMPLES_PER_XNA_SAMPLE = 3;
         public const int SAMPLE_RATE = (CPC.Emulator.CLOCK_UPDATE_HZ / CPC.PSG.AUDIO_SAMPLING_RATE / CPC_SAMPLES_PER_XNA_SAMPLE); //< 41600 Hz. Divides into the CPC clock cleanly.
@@ -35,41 +35,41 @@ namespace XNACPC
         private const int SUBMIT_SIZE = (SAMPLE_RATE * BYTES_PER_SAMPLE * 4) / CPC.Emulator.TARGET_FPS;
         private const int MAX_OVERLAPPED_SUBMITS = 4;                           //< Overlapped submits should only ever get this high if the game is running without frame limiting                 
 
-		private DynamicSoundEffectInstance m_sfx;
-		
-		public Audio()
-		{
-			m_sfx = new DynamicSoundEffectInstance( SAMPLE_RATE, AudioChannels.Stereo );
-			m_sfx.Play();
-		}
+        private DynamicSoundEffectInstance m_sfx;
+        
+        public Audio()
+        {
+            m_sfx = new DynamicSoundEffectInstance( SAMPLE_RATE, AudioChannels.Stereo );
+            m_sfx.Play();
+        }
 
-		public void Reset()
-		{
-			m_sfx.Stop();
-			m_sfx.Play();
-		}
-				 		
-		public bool TrySubmitBuffer( byte[] buffer, int buffer_size )
-		{
-			if ( buffer_size >= SUBMIT_SIZE )
-			{
+        public void Reset()
+        {
+            m_sfx.Stop();
+            m_sfx.Play();
+        }
+                        
+        public bool TrySubmitBuffer( byte[] buffer, int buffer_size )
+        {
+            if ( buffer_size >= SUBMIT_SIZE )
+            {
                 if (m_sfx.PendingBufferCount > MAX_OVERLAPPED_SUBMITS)
-				{
-					// This happens if the game runs too fast compared to all the math assumptions made.
-					// Effectively it's if the game update goes faster than 'Emulator.TARGET_FPS'. It will Stop current samples playing, so
-					// that any new ones can be pushed in.
-					// Without this, the DynamicSoundEffectInstance can reach it's sample limit. Which strangely just kills the game and
-					// debugger without any sort of exception, assert or error. Even on PC.
-					m_sfx.Stop();
-				}
-				m_sfx.SubmitBuffer( buffer, 0, buffer_size );
-				m_sfx.Play();
+                {
+                    // This happens if the game runs too fast compared to all the math assumptions made.
+                    // Effectively it's if the game update goes faster than 'Emulator.TARGET_FPS'. It will Stop current samples playing, so
+                    // that any new ones can be pushed in.
+                    // Without this, the DynamicSoundEffectInstance can reach it's sample limit. Which strangely just kills the game and
+                    // debugger without any sort of exception, assert or error. Even on PC.
+                    m_sfx.Stop();
+                }
+                m_sfx.SubmitBuffer( buffer, 0, buffer_size );
+                m_sfx.Play();
 
-				return true;
-			}
+                return true;
+            }
 
-			return false;
-		}
-				
-	}
+            return false;
+        }
+                
+    }
 }

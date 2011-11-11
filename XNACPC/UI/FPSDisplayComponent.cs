@@ -24,7 +24,7 @@ namespace XNACPC
             {
                 m_reading_total += gameTime.ElapsedGameTime.Ticks;
                 m_index++;
-				
+                
                 if ( m_index >= NUM_READINGS )
                 {
                     m_index = 0;
@@ -33,7 +33,7 @@ namespace XNACPC
                     m_reading_total = 0;
                 }
             }
-			
+            
             public float GetFPS()
             {
                 return m_last_fps;
@@ -55,11 +55,11 @@ namespace XNACPC
 
         int m_skipped_frames;
         
-		public FPSDisplayComponent( Game game )
-			: base( game )
-		{
+        public FPSDisplayComponent( Game game )
+            : base( game )
+        {
             m_skipped_frames = 0;
-		}
+        }
 
         public void SkippingFrame()
         {
@@ -79,8 +79,8 @@ namespace XNACPC
             base.Update(gameTime);
         }
 
-		public override void Draw( GameTime gameTime )
-		{
+        public override void Draw( GameTime gameTime )
+        {
             m_draw_counter.Add(gameTime);
 
             if (m_draw_counter.ShouldRefresh())

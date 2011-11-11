@@ -1,9 +1,9 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// File:	StringBuilderExtFormat.cs
-// Date:	11th March 2010
-// Author:	Gavin Pugh
-// Details:	Extension methods for the 'StringBuilder' standard .NET class, to allow garbage-free concatenation of
-//			formatted strings with a variable set of arguments.
+// File:    StringBuilderExtFormat.cs
+// Date:    11th March 2010
+// Author:  Gavin Pugh
+// Details: Extension methods for the 'StringBuilder' standard .NET class, to allow garbage-free concatenation of
+//          formatted strings with a variable set of arguments.
 //
 // Copyright (c) Gavin Pugh 2010 - Released under the zlib license: http://www.opensource.org/licenses/zlib-license.php
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -19,49 +19,49 @@ namespace XNACPC
     public static partial class StringBuilderExtensions
     {
 
-		//! Concatenate a formatted string with arguments
-		public static StringBuilder ConcatFormat<A>( this StringBuilder string_builder, String format_string, A arg1 )
+        //! Concatenate a formatted string with arguments
+        public static StringBuilder ConcatFormat<A>( this StringBuilder string_builder, String format_string, A arg1 )
             where A : IConvertible
         {
-			return string_builder.ConcatFormat<A, int, int, int>( format_string, arg1, 0, 0, 0 );
+            return string_builder.ConcatFormat<A, int, int, int>( format_string, arg1, 0, 0, 0 );
         }
 
-		//! Concatenate a formatted string with arguments
-		public static StringBuilder ConcatFormat<A, B>( this StringBuilder string_builder, String format_string, A arg1, B arg2 )
+        //! Concatenate a formatted string with arguments
+        public static StringBuilder ConcatFormat<A, B>( this StringBuilder string_builder, String format_string, A arg1, B arg2 )
             where A : IConvertible
             where B : IConvertible
         {
-			return string_builder.ConcatFormat<A, B, int, int>( format_string, arg1, arg2, 0, 0 );
+            return string_builder.ConcatFormat<A, B, int, int>( format_string, arg1, arg2, 0, 0 );
         }
 
-		//! Concatenate a formatted string with arguments
-		public static StringBuilder ConcatFormat<A, B, C>( this StringBuilder string_builder, String format_string, A arg1, B arg2, C arg3 )
+        //! Concatenate a formatted string with arguments
+        public static StringBuilder ConcatFormat<A, B, C>( this StringBuilder string_builder, String format_string, A arg1, B arg2, C arg3 )
             where A : IConvertible
             where B : IConvertible
             where C : IConvertible
         {
-			return string_builder.ConcatFormat<A, B, C, int>( format_string, arg1, arg2, arg3, 0 );
+            return string_builder.ConcatFormat<A, B, C, int>( format_string, arg1, arg2, arg3, 0 );
         }
 
-		//! Concatenate a formatted string with arguments
+        //! Concatenate a formatted string with arguments
         public static StringBuilder ConcatFormat<A,B,C,D>( this StringBuilder string_builder, String format_string, A arg1, B arg2, C arg3, D arg4 )
             where A : IConvertible
             where B : IConvertible
             where C : IConvertible
             where D : IConvertible
         {
-			int verbatim_range_start = 0;
+            int verbatim_range_start = 0;
 
-			for ( int index = 0; index < format_string.Length; index++ )
+            for ( int index = 0; index < format_string.Length; index++ )
             {
-				if ( format_string[index] == '{' )
+                if ( format_string[index] == '{' )
                 {
-					// Formatting bit now, so make sure the last block of the string is written out verbatim.
-					if ( verbatim_range_start < index )
-					{
-						// Write out unformatted string portion
-						string_builder.Append( format_string, verbatim_range_start, index - verbatim_range_start );
-					}
+                    // Formatting bit now, so make sure the last block of the string is written out verbatim.
+                    if ( verbatim_range_start < index )
+                    {
+                        // Write out unformatted string portion
+                        string_builder.Append( format_string, verbatim_range_start, index - verbatim_range_start );
+                    }
 
                     uint base_value = 10;
                     uint padding = 0;
@@ -138,57 +138,57 @@ namespace XNACPC
                         }
                     }
 
-					// Update the verbatim range, start of a new section now
-					verbatim_range_start = ( index + 1 );
+                    // Update the verbatim range, start of a new section now
+                    verbatim_range_start = ( index + 1 );
                 }
-			}
+            }
 
-			// Anything verbatim to write out?
-			if ( verbatim_range_start < format_string.Length )
-			{
-				// Write out unformatted string portion
-				string_builder.Append( format_string, verbatim_range_start, format_string.Length - verbatim_range_start );
-			}
+            // Anything verbatim to write out?
+            if ( verbatim_range_start < format_string.Length )
+            {
+                // Write out unformatted string portion
+                string_builder.Append( format_string, verbatim_range_start, format_string.Length - verbatim_range_start );
+            }
 
             return string_builder;
         }
 
-		//! The worker method. This does a garbage-free conversion of a generic type, and uses the garbage-free Concat() to add to the stringbuilder
-		private static void ConcatFormatValue<T>( this StringBuilder string_builder, T arg, uint padding, uint base_value, uint decimal_places ) where T : IConvertible
-		{
-			switch ( arg.GetTypeCode() )
-			{
-				case System.TypeCode.UInt32:
-					{
-						string_builder.Concat( arg.ToUInt32( System.Globalization.NumberFormatInfo.CurrentInfo ), padding, '0', base_value );
-						break;
-					}
+        //! The worker method. This does a garbage-free conversion of a generic type, and uses the garbage-free Concat() to add to the stringbuilder
+        private static void ConcatFormatValue<T>( this StringBuilder string_builder, T arg, uint padding, uint base_value, uint decimal_places ) where T : IConvertible
+        {
+            switch ( arg.GetTypeCode() )
+            {
+                case System.TypeCode.UInt32:
+                    {
+                        string_builder.Concat( arg.ToUInt32( System.Globalization.NumberFormatInfo.CurrentInfo ), padding, '0', base_value );
+                        break;
+                    }
 
-				case System.TypeCode.Int32:
-					{
-						string_builder.Concat( arg.ToInt32( System.Globalization.NumberFormatInfo.CurrentInfo ), padding, '0', base_value );
-						break;
-					}
+                case System.TypeCode.Int32:
+                    {
+                        string_builder.Concat( arg.ToInt32( System.Globalization.NumberFormatInfo.CurrentInfo ), padding, '0', base_value );
+                        break;
+                    }
 
-				case System.TypeCode.Single:
-					{
-						string_builder.Concat( arg.ToSingle( System.Globalization.NumberFormatInfo.CurrentInfo ), decimal_places, padding, '0' );
-						break;
-					}
+                case System.TypeCode.Single:
+                    {
+                        string_builder.Concat( arg.ToSingle( System.Globalization.NumberFormatInfo.CurrentInfo ), decimal_places, padding, '0' );
+                        break;
+                    }
 
-				case System.TypeCode.String:
-					{
-						string_builder.Append( Convert.ToString( arg ) );
-						break;
-					}
+                case System.TypeCode.String:
+                    {
+                        string_builder.Append( Convert.ToString( arg ) );
+                        break;
+                    }
 
-				default:
-					{
-						Debug.Assert( false, "Unknown parameter type" );
-						break;
-					}
-			}
-		}
+                default:
+                    {
+                        Debug.Assert( false, "Unknown parameter type" );
+                        break;
+                    }
+            }
+        }
 
     }
 }

@@ -42,8 +42,8 @@ namespace XNACPC.CPC
             VolumeEnvFreqLow,
             VolumeEnvFreqHigh,
             VolumeEnvShape,
-            ExternalDataPortA,	//< Keyboard
-            ExternalDataPortB	//< Unused
+            ExternalDataPortA,  //< Keyboard
+            ExternalDataPortB   //< Unused
         }
 
         private const int BUFFER_SIZE = (Audio.BYTES_PER_SAMPLE * Audio.SAMPLE_RATE);   //< Enough for one second of audio
@@ -59,30 +59,30 @@ namespace XNACPC.CPC
         private const int MAX_FINAL_SAMPLE_VALUE = short.MaxValue;
 
         // CPC audio runs at ~125khz. XNA audio doesn't go that high. I run it at 1/3rd of that. ~41.6khz 
-		private const int PSG_SAMPLE_HZ = Emulator.CLOCK_UPDATE_HZ / AUDIO_SAMPLING_RATE;   //< Sample at every tone update
-        public const int PSG_SAMPLE_PERIOD = PSG_SAMPLE_HZ / Audio.SAMPLE_RATE;				//< Calc number of CPC samples per XNA Audio sample
+        private const int PSG_SAMPLE_HZ = Emulator.CLOCK_UPDATE_HZ / AUDIO_SAMPLING_RATE;   //< Sample at every tone update
+        public const int PSG_SAMPLE_PERIOD = PSG_SAMPLE_HZ / Audio.SAMPLE_RATE;             //< Calc number of CPC samples per XNA Audio sample
 
         // Ensure the sampling rate numbers are evenly divisible
         const byte STATIC_ASSERT_CHECK = ((Audio.SAMPLE_RATE * PSG_SAMPLE_PERIOD) == PSG_SAMPLE_HZ) ? 0 : -1;
 
         private static readonly int[] PSG_MASKS = new int[NUM_REGISTERS] {
-			0xFF, // ChannelAToneFreqLow8Bit
-			0x0F, // ChannelAToneFreqHigh4Bit
-			0xFF, // ChannelBToneFreqLow8Bit
-			0x0F, // ChannelBToneFreqHigh4Bit
-			0xFF, // ChannelCToneFreqLow8Bit 
-			0x0F, // ChannelCToneFreqHigh4Bit
-			0x1F, // NoiseFrequency
-			0xFF, // MixerControl
-			0x1F, // ChannelAVolume
-			0x1F, // ChannelBVolume
-			0x1F, // ChannelCVolume
-			0xFF, // VolumeEnvFreqLow
-			0xFF, // VolumeEnvFreqHigh
-			0x0F, // VolumeEnvShape
-			0xFF, // ExternalDataPortA
-			0xFF  // ExternalDataPortB
-		};
+            0xFF, // ChannelAToneFreqLow8Bit
+            0x0F, // ChannelAToneFreqHigh4Bit
+            0xFF, // ChannelBToneFreqLow8Bit
+            0x0F, // ChannelBToneFreqHigh4Bit
+            0xFF, // ChannelCToneFreqLow8Bit 
+            0x0F, // ChannelCToneFreqHigh4Bit
+            0x1F, // NoiseFrequency
+            0xFF, // MixerControl
+            0x1F, // ChannelAVolume
+            0x1F, // ChannelBVolume
+            0x1F, // ChannelCVolume
+            0xFF, // VolumeEnvFreqLow
+            0xFF, // VolumeEnvFreqHigh
+            0x0F, // VolumeEnvShape
+            0xFF, // ExternalDataPortA
+            0xFF  // ExternalDataPortB
+        };
 
         private Function m_function;
         private Register m_selected_register;
@@ -148,7 +148,7 @@ namespace XNACPC.CPC
 
         public void WriteRegister(Register register, int value)
         {
-			// Use correct value masking. A real CPC ignores certain bits.
+            // Use correct value masking. A real CPC ignores certain bits.
             value &= PSG_MASKS[(int)register];
             m_register_values[(int)register] = value;
 
@@ -248,10 +248,10 @@ namespace XNACPC.CPC
             // Called every clock: 1MHz.
             m_psg_clock_count++;
 
-			// Tone update is every 8 clocks. This is the effective frequency of the CPC audio. 125khz.
+            // Tone update is every 8 clocks. This is the effective frequency of the CPC audio. 125khz.
             if ((m_psg_clock_count & TONE_NOISE_CLOCK_UPDATE_MASK) == 0)
             {
-				// Envelope update is every 16 clocks
+                // Envelope update is every 16 clocks
                 if ((m_psg_clock_count & ENVELOPE_CLOCK_UPDATE_MASK) == 0)
                 {
                     m_envelope.Update();
@@ -264,29 +264,29 @@ namespace XNACPC.CPC
                 m_channel_b.Update(m_envelope.m_output_volume, m_noise.m_output);
                 m_channel_c.Update(m_envelope.m_output_volume, m_noise.m_output);
 
-				// Multiple CPC samples, per XNA audio sample.
+                // Multiple CPC samples, per XNA audio sample.
                 m_sampling_counter++;
                 if (m_sampling_counter >= PSG_SAMPLE_PERIOD)
                 {
-					// Ready to write out an XNA audio sample...
+                    // Ready to write out an XNA audio sample...
                     m_sampling_counter = 0;
-					
+                    
                     // Check we're all within range
-					Debug.Assert( m_channel_a.m_mix >= MIN_FINAL_SAMPLE_VALUE );
-					Debug.Assert( m_channel_a.m_mix <= MAX_FINAL_SAMPLE_VALUE );
-					Debug.Assert( m_channel_b.m_mix >= MIN_FINAL_SAMPLE_VALUE );
-					Debug.Assert( m_channel_b.m_mix <= MAX_FINAL_SAMPLE_VALUE );
-					Debug.Assert( m_channel_c.m_mix >= MIN_FINAL_SAMPLE_VALUE );
-					Debug.Assert( m_channel_c.m_mix <= MAX_FINAL_SAMPLE_VALUE );
+                    Debug.Assert( m_channel_a.m_mix >= MIN_FINAL_SAMPLE_VALUE );
+                    Debug.Assert( m_channel_a.m_mix <= MAX_FINAL_SAMPLE_VALUE );
+                    Debug.Assert( m_channel_b.m_mix >= MIN_FINAL_SAMPLE_VALUE );
+                    Debug.Assert( m_channel_b.m_mix <= MAX_FINAL_SAMPLE_VALUE );
+                    Debug.Assert( m_channel_c.m_mix >= MIN_FINAL_SAMPLE_VALUE );
+                    Debug.Assert( m_channel_c.m_mix <= MAX_FINAL_SAMPLE_VALUE );
 
                     // Left speaker should use Channel C + B, Right should use A + B.
-					int left_sample = m_channel_c.m_mix + m_channel_b.m_mix;
-					int right_sample = m_channel_a.m_mix + m_channel_b.m_mix;
+                    int left_sample = m_channel_c.m_mix + m_channel_b.m_mix;
+                    int right_sample = m_channel_a.m_mix + m_channel_b.m_mix;
 
-					// Clear mix for next sampling set
-					m_channel_a.m_mix = 0;
-					m_channel_b.m_mix = 0;
-					m_channel_c.m_mix = 0;
+                    // Clear mix for next sampling set
+                    m_channel_a.m_mix = 0;
+                    m_channel_b.m_mix = 0;
+                    m_channel_c.m_mix = 0;
 
                     // Check cumulative numbers are within range too
                     Debug.Assert(left_sample >= MIN_FINAL_SAMPLE_VALUE);

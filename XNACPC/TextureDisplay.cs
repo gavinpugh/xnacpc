@@ -11,14 +11,14 @@ using Microsoft.Xna.Framework;
 
 namespace XNACPC
 {
-	class TextureDisplay
-	{
+    class TextureDisplay
+    {
         private Texture2D m_texture;
 
         private uint[] m_buffer_front;
         private uint[] m_buffer_back;
         
-		public const int MAX_SCREEN_WIDTH = 640;
+        public const int MAX_SCREEN_WIDTH = 640;
         public const int MAX_SCREEN_HEIGHT = 200;
         public const int BUFFER_SIZE = (MAX_SCREEN_WIDTH * MAX_SCREEN_HEIGHT);
 
@@ -86,9 +86,9 @@ namespace XNACPC
         {
             if (m_texture_state == TextureState.SetDataPending)
             {                
-				m_texture.SetData<uint>(m_buffer_front, 0, BUFFER_SIZE);
+                m_texture.SetData<uint>(m_buffer_front, 0, BUFFER_SIZE);
                 m_texture_state = TextureState.SetDataComplete;
             }
         }
-	}
+    }
 }
