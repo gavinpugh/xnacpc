@@ -34,4 +34,3 @@ The author is listed as 'Jonesy'.
 It has had significant modifications made to it, which are detailed
 at the top of the file. However it remains under this license:
 "Microsoft Public License (Ms-PL)"
-

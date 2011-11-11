@@ -106,7 +106,3 @@ This repository though doesn't contain any binary files. Just the C# source code
 
 v1.0 - November 2011 - Initial Release
 
-
-
-
-
