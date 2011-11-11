@@ -2,3 +2,6 @@ One single file goes here:
 CPC464.ROM
 
 It should be exactly 32kb. Contains the lower and upper 464 ROMs.
+
+You can download a package that has just the .rom and .sna files, here:
+http://www.gavpugh.com/xnacpc/xnacpc_1_0_rom_sna.zip
