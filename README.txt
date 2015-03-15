@@ -86,8 +86,8 @@ Their presence in the project will automatically add them to the pause menu list
 
 =Source Code=
 
-The source code is also hosted at "Google Code":
-https://code.google.com/p/xnacpc/
+The source code is hosted at GitHub:
+https://github.com/gavinpugh/xnacpc/
 
 This repository though doesn't contain any binary files. Just the C# source code.
 
