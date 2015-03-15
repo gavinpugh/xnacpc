@@ -1,6 +1,6 @@
 # Introduction
 
-<img src=http://www.gavpugh.com/boxthumbs/box_xnacpc.jpg align="right">
+<img src="http://www.gavpugh.com/boxthumbs/box_xnacpc.jpg" align="right">
 
 Development on XNACPC was borne out of an interest to test the constraints of C# and XNA. I was curious as to how much CPU power you could get out of the Xbox 360 platform with C#, since in some other experiments I was worried it was a little limited. I also wanted to see how well you could structure an emulator with the language features of C#. To make the source code easy to understand and navigate, which is something you can't say about most C++ based emulators.
 
@@ -12,6 +12,9 @@ XNACPC as it stands now, is comparable to some of the late 90's CPC emulators. I
 
 It's by no means striving to be a competitor to the raft of full-featured PC- based emulators around now. It's just a humble toy project that I wanted to share. Unfortunately due to the obvious legal issues around distributing games I don't have the rights for, I can't upload it to the Xbox Live Indie Games service. So you'll need the XNA Creators Club subscription to be able to use the emulator on your Xbox 360.
 
+<p align="center">
+<img src="http://www.gavpugh.com/wp-content/uploads/2011/11/xnacpc_title.png">
+</p>
 
 # Blog Posts
 
