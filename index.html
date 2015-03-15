@@ -69,24 +69,24 @@
 <a href="http://www.youtube.com/watch?v=TfB2V1DmFs0"><img src="http://img.youtube.com/vi/TfB2V1DmFs0/0.jpg" alt="XNACPC In Action"></a></p>
 
 <h1>
-<a id="readme-and-downloads" class="anchor" href="#readme-and-downloads" aria-hidden="true"><span class="octicon octicon-link"></span></a>Readme and Downloads</h1>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h1>
 
-<h2>
-<a id="repositoryreadme" class="anchor" href="#repositoryreadme" aria-hidden="true"><span class="octicon octicon-link"></span></a>Repository/Readme</h2>
+<p>There are two options to get started and play with XNACPC:</p>
 
-<ul>
-<li><a href="https://github.com/gavinpugh/xnacpc">https://github.com/gavinpugh/xnacpc</a></li>
-</ul>
+<p>1) Download the PC binary package from here:
+<a href="http://www.gavpugh.com/xnacpc/xnacpc_1_0_pc_binaries.zip">http://www.gavpugh.com/xnacpc/xnacpc_1_0_pc_binaries.zip</a></p>
 
-<h2>
-<a id="pc-binary-package-ready-to-play" class="anchor" href="#pc-binary-package-ready-to-play" aria-hidden="true"><span class="octicon octicon-link"></span></a>PC Binary Package (ready to play)</h2>
+<p>2) Download the ready-to-play source package from here:
+<a href="http://www.gavpugh.com/xnacpc/xnacpc_1_0_source.zip">http://www.gavpugh.com/xnacpc/xnacpc_1_0_source.zip</a></p>
 
-<ul>
-<li><a href="http://www.gavpugh.com/xnacpc/xnacpc_1_0_pc_binaries.zip">http://www.gavpugh.com/xnacpc/xnacpc_1_0_pc_binaries.zip</a></li>
-</ul>
+<p>Both include the Amstrad ROMs (which are free to distribute), and a small selection of playable games.</p>
 
-<h3>
-<a id="prereqs" class="anchor" href="#prereqs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Prereqs</h3>
+<p>You will need to compile and deploy the source to your Xbox 360 yourself, using Microsoft Visual Studio. You will also need the XNA 'Creators Club' ('App Hub'?) subscription to be able to deploy the emulator to your Xbox.</p>
+
+<h1>
+<a id="prereqs" class="anchor" href="#prereqs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Prereqs</h1>
+
+<p>If just running the PC binaries, you will need these two redistributables:</p>
 
 <p>Microsoft XNA Framework Redistributable 4.0</p>
 
@@ -100,21 +100,60 @@
 <li><a href="http://www.microsoft.com/download/en/details.aspx?id=17718">http://www.microsoft.com/download/en/details.aspx?id=17718</a></li>
 </ul>
 
-<h2>
-<a id="xbox-360-source-package-ready-to-deploy" class="anchor" href="#xbox-360-source-package-ready-to-deploy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Xbox 360 Source Package (ready to deploy)</h2>
-
-<ul>
-<li><a href="http://www.gavpugh.com/xnacpc/xnacpc_1_0_source.zip">http://www.gavpugh.com/xnacpc/xnacpc_1_0_source.zip</a></li>
-</ul>
-
-<h3>
-<a id="prereqs-1" class="anchor" href="#prereqs-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Prereqs</h3>
+<p>If you wish to compile the source yourself, or deploy to Xbox 360, you will need this:</p>
 
 <p>Microsoft XNA Game Studio 4.0</p>
 
 <ul>
 <li><a href="http://www.microsoft.com/download/en/details.aspx?id=23714">http://www.microsoft.com/download/en/details.aspx?id=23714</a></li>
 </ul>
+
+<h1>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h1>
+
+<p>XNACPC works with any Microsoft Xbox 360 game pad, on both PC and Xbox. The 'Start'
+button will bring up the pause menu. Which allows you go change settings of the
+emulator, and start up games.</p>
+
+<p>The keyboard also functions on both platforms, as the CPC keyboard.</p>
+
+<p>On an attached keyboard you can press the 'F1' key to get to the pause menu. It's
+very useful if you don't have a control pad attached.</p>
+
+<p>The keyboard also offers joystick controls on the NumPad. The center button '5' 
+is the fire button. Num Lock must be turned 'ON' for the keyboard-joystick to work.</p>
+
+<h1>
+<a id="adding-new-games" class="anchor" href="#adding-new-games" aria-hidden="true"><span class="octicon octicon-link"></span></a>Adding New Games</h1>
+
+<p>Games can only be loaded currently via .SNA snapshot files.</p>
+
+<p>I recommend using the WinAPE emulator to produce these: <a href="http://www.winape.net/">http://www.winape.net/</a></p>
+
+<p>Save in the v3 format, uncompressed. XNACPC supports a 128kb CPC. You will have
+problems with 'multi-load' games though. Ones which access the floppy drive or
+tape to load up additional levels of the game.</p>
+
+<p>The .SNA files should simply be dragged into the 'Content' portion of the XNACPC
+solution. Just put them in the same directory as the existing sample SNA files.
+Their presence in the project will automatically add them to the pause menu list.</p>
+
+<h1>
+<a id="bugs--missing-features" class="anchor" href="#bugs--missing-features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bugs / Missing Features</h1>
+
+<ul>
+<li>The floppy disc drive isn't emulated</li>
+<li>The tape deck isn't emulated</li>
+<li>The only way to get games into the emulator is via the .SNA snapshot format.</li>
+<li>XNACPC supports v3 snapshots, but not the compressed variant.</li>
+<li>Amstrad Plus features aren't emulated.</li>
+<li>The CRTC emulation may have trouble with some 'exotic' software.</li>
+</ul>
+
+<h1>
+<a id="version-history" class="anchor" href="#version-history" aria-hidden="true"><span class="octicon octicon-link"></span></a>Version History</h1>
+
+<p>v1.0 - November 2011 - Initial Release</p>
       </section>
       <footer>
         <p>Project maintained by <a href="https://github.com/gavinpugh">gavinpugh</a></p>
