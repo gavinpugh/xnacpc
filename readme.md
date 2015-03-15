@@ -1,5 +1,7 @@
 # Introduction
 
+<img src=http://www.gavpugh.com/boxthumbs/box_xnacpc.jpg align="right">
+
 Development on XNACPC was borne out of an interest to test the constraints of C# and XNA. I was curious as to how much CPU power you could get out of the Xbox 360 platform with C#, since in some other experiments I was worried it was a little limited. I also wanted to see how well you could structure an emulator with the language features of C#. To make the source code easy to understand and navigate, which is something you can't say about most C++ based emulators.
 
 An Amstrad emulator is something I've toyed with since 1998, when I worked on a similarly experimental project. I managed to get it to a working state back then, and included it in my portfolio when I was attempting to get into the games industry. It's still available for download here: http://www.angelfire.com/retro2/cpc3d/
